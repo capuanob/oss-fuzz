@@ -15,10 +15,10 @@
 ################################################################################
 
 FROM gcr.io/oss-fuzz-base/base-builder
-RUN apt-get update && apt-get install -y cmake make wget libdumbnet-dev bison flex libhwloc-dev \
+RUN apt-get update && apt-get install -y clang cmake make wget libdumbnet-dev bison flex libhwloc-dev \
     libluajit-5.1-dev libssl-dev libpcap-dev libpcre3-dev pkgconf zlib1g-dev liblzma-dev cppcheck cpputest autoconf \
     automake libtool libdnet-dev libtirpc-dev libuuid1
-
+RUN ln -sf /usr/local/bin/lld /usr/bin/ld
 RUN git clone --depth 1 https://github.com/snort3/libdaq.git libdaq
 RUN git clone --depth 1 https://github.com/capuanob/snort3.git snort3
 RUN cp $SRC/snort3/fuzzing/build.sh $SRC/
